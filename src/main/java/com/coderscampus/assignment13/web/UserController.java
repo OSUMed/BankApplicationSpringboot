@@ -51,7 +51,8 @@ public class UserController {
 		User user = userService.findById(userId);
 		model.put("users", Arrays.asList(user));
 		model.put("user", user);
-		return "users";
+		System.out.println("The user is: " + user);
+		return "user";
 	}
 
 	@PostMapping("/users/{userId}")
