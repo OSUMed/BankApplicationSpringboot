@@ -39,6 +39,9 @@
 			<div>
 				Zip Code: <input type="text" th:field="*{zipCode}" />
 			</div>
+			<input type="hidden" th:field="*{userId}" th:value="${user.userId}" />
+			
+			
 		</div>
 		<div th:if="${user.address == null}">
 			<h1>no address</h1>
