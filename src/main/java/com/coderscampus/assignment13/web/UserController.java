@@ -48,15 +48,17 @@ public class UserController {
 
 	@GetMapping("/users/{userId}")
 	public String getOneUser (ModelMap model, @PathVariable Long userId) {
+		System.out.println("User id is: "+userId);
 		User user = userService.findById(userId);
-		model.put("users", Arrays.asList(user));
+
+//		model.put("users", Arrays.asList(user));
 		model.put("user", user);
-		System.out.println("The user is: " + user);
 		return "user";
 	}
 
 	@PostMapping("/users/{userId}")
 	public String postOneUser (User user) {
+		System.out.println("updating user is... "+user);
 		userService.saveUser(user);
 		return "redirect:/users/"+user.getUserId();
 	}
