@@ -69,7 +69,7 @@ public class User {
 		this.createdDate = createdDate;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_account", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "account_id"))
 	public List<Account> getAccounts() {
 		return accounts;
@@ -92,8 +92,10 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", name=" + name
-				+ ", accounts=" + accounts + ", address=" + address + "]";
+	    return "User{" +
+	            "id=" + userId +
+	            // omit Account to prevent infinite loop
+	            '}';
 	}
 
 	@Override

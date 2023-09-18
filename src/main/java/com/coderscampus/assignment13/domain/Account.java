@@ -3,6 +3,7 @@ package com.coderscampus.assignment13.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,5 +48,12 @@ public class Account {
 	}
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+	@Override
+	public String toString() {
+	    return "User{" +
+	            "id=" + accountId +
+	            // omit Account to prevent infinite loop
+	            '}';
 	}
 }
