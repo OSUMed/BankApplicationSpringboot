@@ -79,16 +79,27 @@ public class UserController {
 	
 	@GetMapping("/users/{userId}/accounts/{accountId}")
 	public String getAUserAccountPage (ModelMap model, @PathVariable Long userId, @PathVariable Long accountId) {
+		System.out.println("In update addAccountToUser");
+		System.out.println("updating account is... "+ accountId);
+		System.out.println("updating account userId is... "+ userId);
 		Account account = userService.getAccount(accountId);
 		User user = userService.findById(userId);
 		model.put("account", account);
 		model.put("user", user);
+		
+//		Integer new_account_number = accountService.getNumberOfAccounts();
+//		System.out.println("total accounts are: "+ new_account_number);
+//		model.put("new_account_number", new_account_number+1);
 		return "account";
 	}
 	
 	@PostMapping("/users/{userId}/accounts/{accountId}")
-	public String deleteOneUser (Account account, @PathVariable Long userId, @PathVariable Long accountId) {
-//		userService.delete(userId);
+	public String addAccountToUser (Account account, @PathVariable Long userId, @PathVariable Long accountId) {
+		System.out.println("In update addAccountToUser");
+		System.out.println("updating account is... "+ account);
+		System.out.println("updating account userId is... "+ userId);
+		System.out.println("updating account accountId is... "+ accountId);
+		accountService.saveAccount(account, userId);
 		return "redirect:/users/"+ userId;
 	}
 }
