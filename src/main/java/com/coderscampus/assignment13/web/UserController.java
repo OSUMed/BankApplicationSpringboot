@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.coderscampus.assignment13.domain.Account;
 import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.service.UserService;
+import com.coderscampus.assignment13.service.AccountService;
 
 @Controller
 public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AccountService accountService;
 
 	@GetMapping("/register")
 	public String getCreateUser (ModelMap model) {
@@ -54,6 +58,9 @@ public class UserController {
 
 //		model.put("users", Arrays.asList(user));
 		model.put("user", user);
+		Integer new_account_number = accountService.getNumberOfAccounts();
+		System.out.println("total accounts are: "+ new_account_number);
+		model.put("new_account_number", new_account_number+1);
 		return "user";
 	}
 
