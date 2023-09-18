@@ -40,8 +40,8 @@
 				Zip Code: <input type="text" th:field="*{zipCode}" />
 			</div>
 			<input type="hidden" th:field="*{userId}" th:value="${user.userId}" />
-			
-			
+
+
 		</div>
 		<div th:if="${user.address == null}">
 			<h1>no address</h1>
@@ -56,10 +56,18 @@
 	<form th:action="@{/users/{userId}/delete(userId=${user.userId})}" method="post">
 		<input type="submit" value="Delete User Account" />
 	</form>
-
 	<br />
 	<hr />
-
+	<h2>Accounts</h2>
+	<div th:each="account, iterStat : ${user.accounts}">
+		<a th:href=" @{/users/{userId}/accounts/{accountId}(userId=${user.userId},
+			accountId=${account.accountId})}" style="font-size: 19px;">Account #[[${iterStat.count}]]</a>
+	</div>
+	<br />
+	<input type="submit" value="Create New Bank Account" />
+	<br />
+	<br />
+	<span><a th:href="@{/users}" th:text="Back"></a></span><br />
 </body>
 
 </html>
