@@ -83,4 +83,10 @@ public class UserService {
 	public void delete(Long userId) {
 		userRepo.deleteById(userId);
 	}
+
+	public Account getAccount(Long accountId) {
+		Optional<Account> userOpt = accountRepo.findById(accountId);
+		return userOpt.orElse(new Account());
+	}
+
 }

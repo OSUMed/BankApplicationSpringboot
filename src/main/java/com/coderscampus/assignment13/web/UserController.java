@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.coderscampus.assignment13.domain.Account;
 import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.service.UserService;
 
@@ -69,8 +70,17 @@ public class UserController {
 		return "redirect:/users";
 	}
 	
+	@GetMapping("/users/{userId}/accounts/{accountId}")
+	public String getAUserAccountPage (ModelMap model, @PathVariable Long userId, @PathVariable Long accountId) {
+		Account account = userService.getAccount(accountId);
+		User user = userService.findById(userId);
+		model.put("account", account);
+		model.put("user", user);
+		return "account";
+	}
+	
 	@PostMapping("/users/{userId}/accounts/{accountId}")
-	public String deleteOneUser (@PathVariable Long userId, @PathVariable Long accountId) {
+	public String deleteOneUser (Account account, @PathVariable Long userId, @PathVariable Long accountId) {
 //		userService.delete(userId);
 		return "redirect:/users/"+ userId;
 	}
