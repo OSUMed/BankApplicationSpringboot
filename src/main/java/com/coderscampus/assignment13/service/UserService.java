@@ -42,7 +42,7 @@ public class UserService {
 			return new User();
 	}
 
-	public Set<User> findAll () {
+	public Set<User> findAll() {
 		return userRepo.findAllUsersWithAccountsAndAddresses();
 	}
 
@@ -50,7 +50,7 @@ public class UserService {
 		Optional<User> userOpt = userRepo.findById(userId);
 		return userOpt.orElse(new User());
 	}
-	
+
 	public User saveUser(User user) {
 		if (user.getUserId() == null) {
 			Account checking = new Account();
@@ -63,20 +63,26 @@ public class UserService {
 			user.getAccounts().add(savings);
 			accountRepo.save(checking);
 			accountRepo.save(savings);
-			
+
 			// Add new address and create bidirectional relationship
 			Address address = new Address();
 			address.setAddressLine1("Fake Street");
 			address.setUser(user);
 			user.setAddress(address);
-			
+
 			// Cascade deals with the owning side(address) updates
 			return userRepo.save(user);
-			
+
 		}
-//		if (user.getAddress() != null) {
-//			user.setAddress(null);
-//		}
+
+		Optional<User> savedUser = userRepo.findById(user.getUserId());
+		User getUser = savedUser.get();
+		List<Account> userAccounts = savedUser.get().getAccounts();
+//		System.out.println(savedUser.get().getAccounts());
+		user.setAccounts(userAccounts);
+
+		System.out.println("Final User is: " + user);
+	
 		return userRepo.save(user);
 	}
 
