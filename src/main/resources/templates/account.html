@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+	<title th:text="${user.userId}"></title>
+</head>
+
+<body>
+	<form th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId}, accountId=account.accountId)}">
+		<label for="accountInput">Account Name</label>
+		<input id="accountInput" />
+		<input type="submit" value="Submit" />
+	</form>
+	<span><a th:href="@{/users/{userId}(userId =${user.userId}" th:text="Back"></a></span><br />
+</body>
+
+</html>
