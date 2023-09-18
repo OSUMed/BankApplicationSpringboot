@@ -22,14 +22,14 @@
 			<div>
 				<input type="submit" value="Update User Account" />
 			</div>
-			
+
 		</form>
 		<form th:action="@{/users/{userId}/delete(userId=${user.userId})}" method="post">
 			<input type="submit" value="Delete User Account" />
 		</form>
-		<hr/>
-		
-		<hr/>
+		<hr />
+
+		<hr />
 	</div>
 	<div th:unless="${#lists.size(users) == 1}" th:each="user : ${users}">
 		<div th:object="${user}">
@@ -37,9 +37,11 @@
 			<span th:text="*{username}"></span><br />
 			<span th:text="*{name}"></span><br />
 			<span th:text="*{password}"></span>
-			<div th:each="account : *{accounts}">
-				<span th:text="${account.accountName}"></span>
+			<div th:each="account, iterStat : *{accounts}">
+				<a th:href=" @{/users/{userId}/accounts/{accountId}(userId=*{userId},
+			accountId=${account.accountId})}" style="font-size: 19px;">Account #[[${iterStat.count}]]</a>
 			</div>
+
 			<hr />
 		</div>
 	</div>
