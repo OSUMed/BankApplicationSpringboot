@@ -12,7 +12,6 @@ import com.coderscampus.assignment13.domain.Account;
 import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.domain.Address;
 import com.coderscampus.assignment13.repository.AccountRepository;
-import com.coderscampus.assignment13.repository.AddressRepository;
 import com.coderscampus.assignment13.repository.UserRepository;
 
 @Service
@@ -22,8 +21,6 @@ public class UserService {
 	private UserRepository userRepo;
 	@Autowired
 	private AccountRepository accountRepo;
-	@Autowired
-	private AddressRepository addressRepo;
 
 	public List<User> findByUsername(String username) {
 		return userRepo.findByUsername(username);
@@ -53,7 +50,7 @@ public class UserService {
 		Optional<User> userOpt = userRepo.findById(userId);
 		return userOpt.orElse(new User());
 	}
-
+	
 	public User saveUser(User user) {
 		if (user.getUserId() == null) {
 			Account checking = new Account();
@@ -67,13 +64,19 @@ public class UserService {
 			accountRepo.save(checking);
 			accountRepo.save(savings);
 			
-			// Add new address to new User to both sides:
+			// Add new address and create bidirectional relationship
 			Address address = new Address();
+			address.setAddressLine1("Fake Street");
 			address.setUser(user);
 			user.setAddress(address);
-			addressRepo.save(address);
+			
+			// Cascade deals with the owning side(address) updates
+			return userRepo.save(user);
 			
 		}
+//		if (user.getAddress() != null) {
+//			user.setAddress(null);
+//		}
 		return userRepo.save(user);
 	}
 
