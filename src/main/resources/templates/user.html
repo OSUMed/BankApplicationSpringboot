@@ -64,9 +64,13 @@
 			accountId=${account.accountId})}" style="font-size: 19px;">Account #[[${iterStat.count}]]</a>
 	</div>
 	<br />
-	<form th:action=" @{/users/{userId}/accounts/(userId=${user.userId})}" method="GET">
+	<!-- 	<form th:action=" @{/users/{userId}/accounts/{accountId}(userId=${user.userId},
+			accountId=${new_account_number})}" method="GET">
 		<input type="submit" value="Create New Bank Account" />
-	</form>
+	</form> -->
+	<button> <a th:href=" @{/users/{userId}/accounts/{accountId}(userId=${user.userId},
+			accountId=${new_account_number})}">Create New Bank Account</a>
+	</button>
 	<br />
 	<br />
 	<span><a th:href="@{/users}" th:text="Back"></a></span><br />
