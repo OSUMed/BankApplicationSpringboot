@@ -9,9 +9,9 @@
 <h1>Account #[[${user.userId}]]</h1>
 
 <body>
-	<form th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId}, accountId=account.accountId)}">
+	<form th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId}, accountId=${account.accountId})}" method="post">
 		<label for="accountInput">Account Name: </label>
-		<input id="accountInput" th:value="${account.accountName}" />
+		<input id="accountInput" type="text" th:field="${account.accountName}" />
 		<br />
 		<input type="submit" value="Submit" />
 	</form>
