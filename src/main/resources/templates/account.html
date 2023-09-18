@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 
+
 <head>
+	<title>Account</title>
 	<title th:text="${user.userId}"></title>
 </head>
+<h1>Account #[[${user.userId}]]</h1>
 
 <body>
 	<form th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId}, accountId=account.accountId)}">
-		<label for="accountInput">Account Name</label>
-		<input id="accountInput" />
+		<label for="accountInput">Account Name: </label>
+		<input id="accountInput" th:value="${account.accountName}" />
+		<br />
 		<input type="submit" value="Submit" />
 	</form>
-	<span><a th:href="@{/users/{userId}(userId =${user.userId}" th:text="Back"></a></span><br />
+	<span><a th:href="@{/users/{userId}(userId =${user.userId})}" th:text="Back"></a></span><br />
 </body>
 
 </html>
