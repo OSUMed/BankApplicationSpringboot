@@ -38,7 +38,7 @@ public class AccountService {
 		// If current account Id matches with expected next account id, it is 
 		// a new account so do bidirectional relationship adds bw account & users:
 		Integer maxAccountId = this.getNextAccountNumber();
-		if (account.getAccountId().intValue() == maxAccountId) {
+		if (account.getAccountId() == null || account.getAccountId().intValue() == maxAccountId) {
 			User user = userService.findById(userId);
 			account.getUsers().add(user);
 			user.getAccounts().add(account);
