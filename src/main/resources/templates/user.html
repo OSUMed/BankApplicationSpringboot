@@ -61,7 +61,7 @@
 	<h2>Accounts</h2>
 	<div th:each="account, iterStat : ${user.accounts}">
 		<a th:href=" @{/users/{userId}/accounts/{accountId}(userId=${user.userId},
-			accountId=${account.accountId})}" style="font-size: 19px;">Account #[[${iterStat.count}]]</a>
+			accountId=${account.accountId})}" style="font-size: 19px;">[[${account.accountName}]]</a>
 	</div>
 	<br />
 	<!-- 	<form th:action=" @{/users/{userId}/accounts/{accountId}(userId=${user.userId},
