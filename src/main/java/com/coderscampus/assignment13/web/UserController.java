@@ -96,11 +96,23 @@ public class UserController {
 	}
 	
 	@PostMapping("/users/{userId}/accounts/{accountId}")
-	public String addAccountToUser (Account account, @PathVariable Long userId, @PathVariable Long accountId) {
+	public String updateAccountToUser (Account account, @PathVariable Long userId, @PathVariable Long accountId) {
 		System.out.println("In update addAccountToUser");
 		System.out.println("updating account is... "+ account);
 		System.out.println("updating account userId is... "+ userId);
 		System.out.println("updating account accountId is... "+ accountId);
+		accountService.saveAccount(account, userId);
+		String redirectString =  "redirect:/users/"+ userId + "/accounts/" + accountId;
+		System.out.println("redirect string is: " + redirectString);
+//		return "redirect:/users/"+ userId;
+		return "redirect:/users/"+ userId + "/accounts/" + accountId;
+	}
+	
+	@PostMapping("/users/{userId}/accounts")
+	public String addAccountToUser (Account account, @PathVariable Long userId) {
+		System.out.println("In update addAccountToUser");
+		System.out.println("updating account is... "+ account);
+		System.out.println("updating account userId is... "+ userId);
 		accountService.saveAccount(account, userId);
 		return "redirect:/users/"+ userId;
 	}
