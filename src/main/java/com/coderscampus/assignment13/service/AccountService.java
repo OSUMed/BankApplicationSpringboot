@@ -9,7 +9,6 @@ import com.coderscampus.assignment13.domain.Account;
 import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.repository.AccountRepository;
 import com.coderscampus.assignment13.repository.UserRepository;
-import com.coderscampus.assignment13.repository.AccountRepository;
 
 @Service
 public class AccountService {
@@ -28,15 +27,14 @@ public class AccountService {
 	}
 
 	public Integer getNumberOfAccounts() {
-		long numberOfAccounts = accountRepo.count(); // count() method provided by JpaRepository
+		long numberOfAccounts = accountRepo.count(); 
 		return (int) numberOfAccounts;
 	}
 
 	public Account saveAccount(Account account, Long userId) {
 		
 		
-		// If current account Id matches with expected next account id, it is 
-		// a new account so do bidirectional relationship adds bw account & users:
+		// If accountId is null, add bidirectional relationship logic with user entity:
 		Integer maxAccountId = this.getNextAccountNumber();
 		if (account.getAccountId() == null || account.getAccountId().intValue() == maxAccountId) {
 			User user = userService.findById(userId);
@@ -47,7 +45,7 @@ public class AccountService {
 			return account;
 		}
 		
-		// else, we are just updating an existing account record:
+		// if accountId is not null, we are just updating an existing account record:
 		User user = userService.findById(userId);
 		userRepo.save(user);
 		return accountRepo.save(account);
