@@ -68,8 +68,7 @@
 			accountId=${new_account_number})}" method="GET">
 		<input type="submit" value="Create New Bank Account" />
 	</form> -->
-	<button> <a th:href=" @{/users/{userId}/accounts/{accountId}(userId=${user.userId},
-			accountId=${new_account_number})}">Create New Bank Account</a>
+	<button> <a th:href=" @{/users/{userId}/accounts(userId=${user.userId})}">Create New Bank Account</a>
 	</button>
 	<br />
 	<br />
