@@ -11,7 +11,7 @@
 
 <body>
 	<div th:if="${account.accountId != null}">
-		<h1>FIRST Account #[[${user.userId}]]</h1>
+		<h1>[[${account.accountName}]]</h1>
 		<form
 			th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId}, accountId=${account.accountId})}"
 			method="post">
@@ -24,7 +24,7 @@
 	</div>
 
 	<div th:unless="${account.accountId != null}">
-		<h1>SECOND Account #[[${new_user_account_number}]]</h1>
+		<h1>[[${account.accountName}]]</h1>
 		<form
 			th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId},accountId=${new_account_number})}"
 			method="post">
