@@ -13,12 +13,12 @@
 
 This is a Spring Boot application designed to manage users and their corresponding accounts and addresses. It showcases relationships between entities and provides CRUD (Create, Read, Update, Delete) functionalities.
 
+## Project Gif Preview
+![Kapture 2023-09-19 at 12 36 38](https://github.com/OSUMed/srikanth-assignment13/assets/62990411/f4c837b5-557c-4182-b0ab-c6a61c70ffa1)
+
 ## Folder Structure
 
 <img width="270" alt="image" src="https://github.com/OSUMed/srikanth-assignment13/assets/62990411/0389a57f-a03e-41dc-891a-aac0184678e4">
-
-## Project Gif Preview
-![Kapture 2023-09-19 at 12 36 38](https://github.com/OSUMed/srikanth-assignment13/assets/62990411/f4c837b5-557c-4182-b0ab-c6a61c70ffa1)
 
 ## Features
 
