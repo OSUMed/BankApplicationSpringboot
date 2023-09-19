@@ -51,7 +51,7 @@ public class Account {
 	}
 	@Override
 	public String toString() {
-	    return "User{" +
+	    return "Account{" +
 	            "id=" + accountId +
 	            // omit Account to prevent infinite loop
 	            '}';
