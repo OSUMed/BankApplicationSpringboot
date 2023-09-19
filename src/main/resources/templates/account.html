@@ -26,7 +26,7 @@
 	<div th:unless="${account.accountId != null}">
 		<h1>[[${account.accountName}]]</h1>
 		<form
-			th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId},accountId=${new_account_number})}"
+			th:action="@{/users/{userId}/accounts(userId =${user.userId})}"
 			method="post">
 			<label for="accountAdd">Account Name: </label>
 			<input id="accountAdd" type="text" th:field="${account.accountName}" />
