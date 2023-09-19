@@ -39,7 +39,7 @@
 			<span th:text="*{password}"></span>
 			<div th:each="account, iterStat : *{accounts}">
 				<a th:href=" @{/users/{userId}/accounts/{accountId}(userId=*{userId},
-			accountId=${account.accountId})}" style="font-size: 19px;">Account #[[${iterStat.count}]]</a>
+			accountId=${account.accountId})}" style="font-size: 19px;">[[${account.accountName}]]</a>
 			</div>
 
 			<hr />
