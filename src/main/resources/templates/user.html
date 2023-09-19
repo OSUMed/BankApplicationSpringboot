@@ -64,14 +64,10 @@
 			accountId=${account.accountId})}" style="font-size: 19px;">[[${account.accountName}]]</a>
 	</div>
 	<br />
-	<!-- 	<form th:action=" @{/users/{userId}/accounts/{accountId}(userId=${user.userId},
-			accountId=${new_account_number})}" method="GET">
-		<input type="submit" value="Create New Bank Account" />
-	</form> -->
-	<button> <a th:href=" @{/users/{userId}/accounts/{accountId}(userId=${user.userId},
-			accountId=${new_account_number})}">Create New Bank Account</a>
-	</button>
-	<br />
+	<form th:action="@{/users/{userId}/accounts/{accountId}(userId=${user.userId}, accountId=${new_account_number})}"
+		method="get">
+		<button type="submit">Create New Bank Account</button>
+	</form>
 	<br />
 	<span><a th:href="@{/users}" th:text="Back"></a></span><br />
 </body>
