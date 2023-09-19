@@ -21,6 +21,8 @@ public class UserService {
 	private UserRepository userRepo;
 	@Autowired
 	private AccountRepository accountRepo;
+	@Autowired
+	private AccountService accountService;
 
 	public List<User> findByUsername(String username) {
 		return userRepo.findByUsername(username);
@@ -63,7 +65,8 @@ public class UserService {
 			user.getAccounts().add(savings);
 			accountRepo.save(checking);
 			accountRepo.save(savings);
-
+			accountService.setAccountAmount(accountService.getAccountAmount()+2);
+			System.out.println("total amount after save user is: " + accountService.getAccountAmount());
 			// Add new address and create bidirectional relationship
 			Address address = new Address();
 			address.setAddressLine1("Fake Street");
@@ -78,7 +81,6 @@ public class UserService {
 		Optional<User> savedUser = userRepo.findById(user.getUserId());
 		User getUser = savedUser.get();
 		List<Account> userAccounts = savedUser.get().getAccounts();
-//		System.out.println(savedUser.get().getAccounts());
 		user.setAccounts(userAccounts);
 
 		System.out.println("Final User is: " + user);
@@ -90,9 +92,14 @@ public class UserService {
 		userRepo.deleteById(userId);
 	}
 
-	public Account getAccount(Long accountId) {
-		Optional<Account> userOpt = accountRepo.findById(accountId);
-		return userOpt.orElse(new Account());
+	public void prepareNewAccount(Account account, User user) {
+		// TODO Auto-generated method stub
+		Integer accountNumber = user.getAccounts().size()+1;
+		String accountName = "Account #" + accountNumber;
+		account.setAccountName(accountName);
+		
 	}
+
+
 
 }
