@@ -30,6 +30,9 @@ src/
 
 ## Features
 
+## Technologies Used:
+- SpringBoot, Java, Thymeleaf, SQL, Hibernate
+
 ### Service Layer Functionalities
 
 #### Account Management
