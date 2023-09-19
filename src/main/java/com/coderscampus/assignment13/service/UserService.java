@@ -79,7 +79,6 @@ public class UserService {
 		}
 
 		Optional<User> savedUser = userRepo.findById(user.getUserId());
-		User getUser = savedUser.get();
 		List<Account> userAccounts = savedUser.get().getAccounts();
 		user.setAccounts(userAccounts);
 
