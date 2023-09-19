@@ -10,26 +10,30 @@
 </head>
 
 <body>
-	<div th:if="${new_account_number == null}">
-	<h1>Account #[[${user.userId}]]</h1>
-	<form th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId}, accountId=${account.accountId})}" method="post">
-		<label for="accountInput">Account Name: </label>
-		<input id="accountInput" type="text" th:field="${account.accountName}" />
-		<br />
-		<input type="submit" value="Submit" />
-	</form>
-	<span><a th:href="@{/users/{userId}(userId =${user.userId})}" th:text="Back"></a></span><br />
+	<div th:if="${account.accountId != null}">
+		<h1>FIRST Account #[[${user.userId}]]</h1>
+		<form
+			th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId}, accountId=${account.accountId})}"
+			method="post">
+			<label for="accountInput">Account Name: </label>
+			<input id="accountInput" type="text" th:field="${account.accountName}" />
+			<br />
+			<input type="submit" value="Submit" />
+		</form>
+		<span><a th:href="@{/users/{userId}(userId =${user.userId})}" th:text="Back"></a></span><br />
 	</div>
-	
-	<div th:unless="${new_account_number == null}">
-	<h1>Account #[[${new_user_account_number}]]</h1>
-	<form th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId}, accountId=${new_account_number})}" method="post">
-		<label for="accountAdd">Account Name: </label>
-		<input id="accountAdd" type="text" th:field="${account.accountName}" />
-		<br />
-		<input type="submit" value="Submit" />
-	</form>
-	<span><a th:href="@{/users/{userId}(userId =${user.userId})}" th:text="Back"></a></span><br />
+
+	<div th:unless="${account.accountId != null}">
+		<h1>SECOND Account #[[${new_user_account_number}]]</h1>
+		<form
+			th:action="@{/users/{userId}/accounts/{accountId}(userId =${user.userId},accountId=${new_account_number})}"
+			method="post">
+			<label for="accountAdd">Account Name: </label>
+			<input id="accountAdd" type="text" th:field="${account.accountName}" />
+			<br />
+			<input type="submit" value="Submit" />
+		</form>
+		<span><a th:href="@{/users/{userId}(userId =${user.userId})}" th:text="Back"></a></span><br />
 	</div>
 </body>
 
