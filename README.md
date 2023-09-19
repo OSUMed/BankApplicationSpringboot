@@ -13,7 +13,9 @@
 
 This is a Spring Boot application designed to manage users and their corresponding accounts and addresses. It showcases relationships between entities and provides CRUD (Create, Read, Update, Delete) functionalities.
 Deployed Site: https://bankapplication.up.railway.app/users
+
    To Add Users: https://bankapplication.up.railway.app/register
+   
    To Update Users: Click on a user and access users' address and account details
 
 ## Project Gif Preview
