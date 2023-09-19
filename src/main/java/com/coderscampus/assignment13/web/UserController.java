@@ -36,6 +36,7 @@ public class UserController {
 	public String postCreateUser (User user) {
 		System.out.println(user);
 		userService.saveUser(user);
+		accountService.setAccountAmount(accountService.getAccountAmount()+2);
 		return "redirect:/register";
 	}
 
@@ -58,9 +59,10 @@ public class UserController {
 
 //		model.put("users", Arrays.asList(user));
 		model.put("user", user);
-		Integer new_account_number = accountService.getNumberOfAccounts();
-		System.out.println("total accounts are: "+ new_account_number);
-		model.put("new_account_number", new_account_number+1);
+//		Integer new_account_number = accountService.getNumberOfAccounts();
+		Integer nextAccountNumber = accountService.getNextAccountNumber();
+		System.out.println("total accounts are: "+ nextAccountNumber);
+		model.put("new_account_number", nextAccountNumber);
 		return "user";
 	}
 
@@ -82,14 +84,14 @@ public class UserController {
 		System.out.println("In update addAccountToUser");
 		System.out.println("updating account is... "+ accountId);
 		System.out.println("updating account userId is... "+ userId);
-		Account account = userService.getAccount(accountId);
 		User user = userService.findById(userId);
+		Account account = accountService.getAccount(accountId);
+		if (account.getAccountId() == null) {
+			userService.prepareNewAccount(account, user);
+		}
 		model.put("account", account);
 		model.put("user", user);
-		
-//		Integer new_account_number = accountService.getNumberOfAccounts();
-//		System.out.println("total accounts are: "+ new_account_number);
-//		model.put("new_account_number", new_account_number+1);
+		model.put("new_account_number", accountId);
 		return "account";
 	}
 	
