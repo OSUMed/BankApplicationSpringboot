@@ -1,4 +1,4 @@
-# Assignment 13 - Spring Boot Application
+# Spring Boot Application
 
 ## Table of Contents
 
