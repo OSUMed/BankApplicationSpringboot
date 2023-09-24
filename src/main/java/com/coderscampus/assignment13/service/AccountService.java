@@ -30,12 +30,11 @@ public class AccountService {
 		long numberOfAccounts = accountRepo.count(); 
 		return (int) numberOfAccounts;
 	}
-
+	
 	public Account saveAccount(Account account, Long userId) {
 		
 		// If accountId is null, add bidirectional relationship logic with user entity:
-		Integer maxAccountId = this.getNextAccountNumber();
-		if (account.getAccountId() == null || account.getAccountId().intValue() == maxAccountId) {
+		if (account.getAccountId() == null) {
 			User user = userService.findById(userId);
 			account.getUsers().add(user);
 			user.getAccounts().add(account);
