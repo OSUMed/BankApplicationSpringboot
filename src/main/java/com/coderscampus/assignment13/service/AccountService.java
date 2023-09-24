@@ -33,7 +33,6 @@ public class AccountService {
 
 	public Account saveAccount(Account account, Long userId) {
 		
-		
 		// If accountId is null, add bidirectional relationship logic with user entity:
 		Integer maxAccountId = this.getNextAccountNumber();
 		if (account.getAccountId() == null || account.getAccountId().intValue() == maxAccountId) {
@@ -71,9 +70,12 @@ public class AccountService {
 		this.accountAmount = accountAmount;
 	}
 
+	// Calculate the next available account number, or return 1 if 
+	// no accounts exist yet
 	public Integer getNextAccountNumber() {
-		Long maxAccountId = accountRepo.findMaxAccountId();
-		return (maxAccountId != null ? maxAccountId.intValue() + 1 : 1);
+		return accountRepo.findMaxAccountId()
+				.map(maxAccountId -> maxAccountId.intValue() + 1)
+				.orElse(1);
 	}
 
 }
