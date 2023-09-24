@@ -35,11 +35,15 @@ public class AccountService {
 	    account.getUsers().add(user);
 	    user.getAccounts().add(account);
 	}
+	
+	private boolean isNewAccount(Account account) {
+	    return account.getAccountId() == null;
+	}
 
 	public Account saveAccount(Account account, Long userId) {
 		
 		// If accountId is null, add bidirectional relationship logic with user entity:
-		if (account.getAccountId() == null) {
+		if (isNewAccount(account)) {
 			User user = userService.findById(userId);
 			linkAccountAndUser(account, user);
 			account = accountRepo.save(account);
