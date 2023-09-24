@@ -31,13 +31,17 @@ public class AccountService {
 		return (int) numberOfAccounts;
 	}
 	
+	private void linkAccountAndUser(Account account, User user) {
+	    account.getUsers().add(user);
+	    user.getAccounts().add(account);
+	}
+
 	public Account saveAccount(Account account, Long userId) {
 		
 		// If accountId is null, add bidirectional relationship logic with user entity:
 		if (account.getAccountId() == null) {
 			User user = userService.findById(userId);
-			account.getUsers().add(user);
-			user.getAccounts().add(account);
+			linkAccountAndUser(account, user);
 			account = accountRepo.save(account);
 			userRepo.save(user);
 			return account;
