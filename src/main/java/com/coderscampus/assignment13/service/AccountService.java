@@ -27,35 +27,42 @@ public class AccountService {
 	}
 
 	public Integer getNumberOfAccounts() {
-		long numberOfAccounts = accountRepo.count(); 
+		long numberOfAccounts = accountRepo.count();
 		return (int) numberOfAccounts;
 	}
-	
-	private void linkAccountAndUser(Account account, User user) {
-	    account.getUsers().add(user);
-	    user.getAccounts().add(account);
-	}
-	
-	private boolean isNewAccount(Account account) {
-	    return account.getAccountId() == null;
-	}
 
+	/**
+	 * Saves the given account and associates it with a user if it's a new account.
+	 *
+	 * @param account the account to be saved
+	 * @param userId  the ID of the user to associate with the account if it's new
+	 * @return the saved account
+	 */
 	public Account saveAccount(Account account, Long userId) {
-		
-		// If accountId is null, add bidirectional relationship logic with user entity:
+		User user = userService.findById(userId);
+
+		// If new account, create relationship, then save. Else, save
 		if (isNewAccount(account)) {
-			User user = userService.findById(userId);
 			linkAccountAndUser(account, user);
 			account = accountRepo.save(account);
 			userRepo.save(user);
-			return account;
-		}
-		
-		// if accountId is not null, we are just updating an existing account record:
-		User user = userService.findById(userId);
-		userRepo.save(user);
-		return accountRepo.save(account);
 
+		} else {
+			account = accountRepo.save(account);
+			userRepo.save(user);
+		}
+
+		return account;
+
+	}
+
+	private void linkAccountAndUser(Account account, User user) {
+		account.getUsers().add(user);
+		user.getAccounts().add(account);
+	}
+
+	private boolean isNewAccount(Account account) {
+		return account.getAccountId() == null;
 	}
 
 	public Account getAccount(Long accountId) {
@@ -77,12 +84,10 @@ public class AccountService {
 		this.accountAmount = accountAmount;
 	}
 
-	// Calculate the next available account number, or return 1 if 
+	// Calculate the next available account number, or return 1 if
 	// no accounts exist yet
 	public Integer getNextAccountNumber() {
-		return accountRepo.findMaxAccountId()
-				.map(maxAccountId -> maxAccountId.intValue() + 1)
-				.orElse(1);
+		return accountRepo.findMaxAccountId().map(maxAccountId -> maxAccountId.intValue() + 1).orElse(1);
 	}
 
 }
