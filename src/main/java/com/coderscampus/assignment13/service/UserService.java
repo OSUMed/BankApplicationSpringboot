@@ -54,37 +54,64 @@ public class UserService {
 	}
 
 	public User saveUser(User user) {
-		if (user.getUserId() == null) {
-			Account checking = new Account();
-			checking.setAccountName("Checking Account");
-			checking.getUsers().add(user);
-			Account savings = new Account();
-			savings.setAccountName("Savings Account");
-			savings.getUsers().add(user);
-			user.getAccounts().add(checking);
-			user.getAccounts().add(savings);
-			accountRepo.save(checking);
-			accountRepo.save(savings);
-			accountService.setAccountAmount(accountService.getAccountAmount()+2);
-			System.out.println("total amount after save user is: " + accountService.getAccountAmount());
-			// Add new address and create bidirectional relationship
-			Address address = new Address();
-			address.setAddressLine1("Fake Street");
-			address.setUser(user);
-			user.setAddress(address);
-
-			// Cascade deals with the owning side(address) updates
+		if (isNewUser(user)) {
+			// Initialize default accounts and address for the new user
+			createDefaultAccountsForNewUser(user);
+			initializeDefaultAddressForNewUser(user);
+			
+			// Persist the new user in the repository
 			return userRepo.save(user);
-
 		}
-
+		
+		// Retrieve the persisted user data from the repository
 		Optional<User> savedUser = userRepo.findById(user.getUserId());
+		
+		// Update user's accounts with the corresponding accounts from the repository
 		List<Account> userAccounts = savedUser.get().getAccounts();
 		user.setAccounts(userAccounts);
+		
+		// If the incoming password is empty, set it to the persisted user's password
+		if (savedUser.isPresent()) {
+			if (user.getPassword().isEmpty()) {
+				user.setPassword(savedUser.get().getPassword());
+			}
+		}
 
-		System.out.println("Final User is: " + user);
-	
+		// Persist the updated user data and return
 		return userRepo.save(user);
+	}
+
+	private void initializeDefaultAddressForNewUser(User user) {
+	    String[] accountTypes = {"Checking Account", "Savings Account"};
+	    
+	    for (String accountType : accountTypes) {
+	        Account account = new Account();
+	        account.setAccountName(accountType);
+	        linkUserAndAccount(user, account);
+	        accountRepo.save(account);
+	    }
+
+	}
+
+	private void createDefaultAccountsForNewUser(User user) {
+		Address address = new Address();
+		address.setAddressLine1("Fake Street");
+		linkUserAndAddress(user, address);
+
+	}
+
+	private boolean isNewUser(User user) {
+		return user.getUserId() == null;
+	}
+
+	private void linkUserAndAccount(User user, Account account) {
+		account.getUsers().add(user);
+		user.getAccounts().add(account);
+	}
+
+	private void linkUserAndAddress(User user, Address address) {
+		address.setUser(user);
+		user.setAddress(address);
 	}
 
 	public void delete(Long userId) {
@@ -93,12 +120,10 @@ public class UserService {
 
 	public void prepareNewAccount(Account account, User user) {
 		// TODO Auto-generated method stub
-		Integer accountNumber = user.getAccounts().size()+1;
+		Integer accountNumber = user.getAccounts().size() + 1;
 		String accountName = "Account #" + accountNumber;
 		account.setAccountName(accountName);
-		
+
 	}
-
-
 
 }
