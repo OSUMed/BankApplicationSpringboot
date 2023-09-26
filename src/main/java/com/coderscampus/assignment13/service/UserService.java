@@ -66,16 +66,13 @@ public class UserService {
 			// Add bidirectional relationships between User and Account for both new accounts:
 			linkUserAndAccount(user, checking);
 			linkUserAndAccount(user, savings);
-			
-			
 			accountRepo.save(checking);
 			accountRepo.save(savings);
 			
-			// Add new address and create bidirectional relationship
 			Address address = new Address();
+			// Add new address and create bidirectional relationship
 			address.setAddressLine1("Fake Street");
 			linkUserAndAddress(user, address);
-
 			// Cascade deals with the owning side(address) updates
 			return userRepo.save(user);
 
