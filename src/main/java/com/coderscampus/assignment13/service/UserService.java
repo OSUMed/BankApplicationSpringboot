@@ -74,8 +74,7 @@ public class UserService {
 			// Add new address and create bidirectional relationship
 			Address address = new Address();
 			address.setAddressLine1("Fake Street");
-			address.setUser(user);
-			user.setAddress(address);
+			linkUserAndAddress(user, address);
 
 			// Cascade deals with the owning side(address) updates
 			return userRepo.save(user);
@@ -108,6 +107,11 @@ public class UserService {
 	private void linkUserAndAccount(User user, Account account) {
 		account.getUsers().add(user);
 		user.getAccounts().add(account);
+	}
+	
+	private void linkUserAndAddress(User user, Address address) {
+		address.setUser(user);
+		user.setAddress(address);
 	}
 	
 	public void delete(Long userId) {
