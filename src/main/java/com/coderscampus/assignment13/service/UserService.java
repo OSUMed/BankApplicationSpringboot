@@ -52,17 +52,22 @@ public class UserService {
 		Optional<User> userOpt = userRepo.findById(userId);
 		return userOpt.orElse(new User());
 	}
+	
+
 
 	public User saveUser(User user) {
-		if (user.getUserId() == null) {
+		if (isNewUser(user) ) {			
+			//Set two default new accounts per new user:
 			Account checking = new Account();
-			checking.setAccountName("Checking Account");
-			checking.getUsers().add(user);
 			Account savings = new Account();
+			checking.setAccountName("Checking Account");
 			savings.setAccountName("Savings Account");
-			savings.getUsers().add(user);
-			user.getAccounts().add(checking);
-			user.getAccounts().add(savings);
+			
+			// Add bidirectional relationships between User and Account for both new accounts:
+			linkUserAndAccount(user, checking);
+			linkUserAndAccount(user, savings);
+			
+			
 			accountRepo.save(checking);
 			accountRepo.save(savings);
 			accountService.setAccountAmount(accountService.getAccountAmount()+2);
@@ -77,28 +82,45 @@ public class UserService {
 			return userRepo.save(user);
 
 		}
-
+		System.out.print("Initial user before update: ");
+		System.out.print(user);
+		
+		
+		// Get Repo version of user:
 		Optional<User> savedUser = userRepo.findById(user.getUserId());
 		List<Account> userAccounts = savedUser.get().getAccounts();
 		user.setAccounts(userAccounts);
+		System.out.println("savedUser is: " + savedUser);
+		
+		
+//		user.setPassword(savedUser.get().getPassword());
 
-		System.out.println("Final User is: " + user);
+		System.out.println("Final User after update: ");
+		System.out.print(user);
 	
 		return userRepo.save(user);
 	}
 
+	
+	private boolean isNewUser(User user) {
+		return user.getUserId() == null;
+	}
+	
+	private void linkUserAndAccount(User user, Account account) {
+		account.getUsers().add(user);
+		user.getAccounts().add(account);
+	}
+	
 	public void delete(Long userId) {
 		userRepo.deleteById(userId);
 	}
 
 	public void prepareNewAccount(Account account, User user) {
 		// TODO Auto-generated method stub
-		Integer accountNumber = user.getAccounts().size()+1;
+		Integer accountNumber = user.getAccounts().size() + 1;
 		String accountName = "Account #" + accountNumber;
 		account.setAccountName(accountName);
-		
+
 	}
-
-
 
 }
