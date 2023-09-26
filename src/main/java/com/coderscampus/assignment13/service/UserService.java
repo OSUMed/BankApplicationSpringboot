@@ -77,10 +77,6 @@ public class UserService {
 			return userRepo.save(user);
 
 		}
-		System.out.print("Initial user before update: ");
-		System.out.print(user);
-		
-		
 		// Get Repo version of user:
 		Optional<User> savedUser = userRepo.findById(user.getUserId());
 		List<Account> userAccounts = savedUser.get().getAccounts();
@@ -94,23 +90,6 @@ public class UserService {
 				user.setPassword(savedUser.get().getPassword());
 			}
 		}
-		
-		// Other cases: If incoming user password is different, that means we are updating password
-		
-		// User can never clear password after account creation, only change it -> always grab pass from userRepo
-		
-		
-		
-		// user is NULL && savedUser is NULL		-> ignore, doesn't matter
-		// user is not NULL && savedUser is NULL	--> we are setting up a password, it should update
-		// user is NULL && savedUser is not NULL	--> We are clearing password? that never happens
-		// We want to clear user password && savedUser is NULL
-		// We want to clear user password && savedUser is not NULL
-		
-
-		System.out.println("Final User after update: ");
-		System.out.print(user);
-//		user.setAddress(address);
 	
 		return userRepo.save(user);
 	}
