@@ -70,8 +70,7 @@ public class UserService {
 			
 			accountRepo.save(checking);
 			accountRepo.save(savings);
-			accountService.setAccountAmount(accountService.getAccountAmount()+2);
-			System.out.println("total amount after save user is: " + accountService.getAccountAmount());
+			
 			// Add new address and create bidirectional relationship
 			Address address = new Address();
 			address.setAddressLine1("Fake Street");
