@@ -55,41 +55,41 @@ public class UserService {
 
 	public User saveUser(User user) {
 		if (isNewUser(user)) {
-			// Set two default new accounts per new user:
+			// Initialize default accounts and address for the new user
 			createDefaultAccountsForNewUser(user);
 			initializeDefaultAddressForNewUser(user);
+			
+			// Persist the new user in the repository
 			return userRepo.save(user);
-
 		}
-		// Get Repo version of user:
+		
+		// Retrieve the persisted user data from the repository
 		Optional<User> savedUser = userRepo.findById(user.getUserId());
+		
+		// Update user's accounts with the corresponding accounts from the repository
 		List<Account> userAccounts = savedUser.get().getAccounts();
 		user.setAccounts(userAccounts);
-		System.out.println("savedUser is: " + savedUser);
-
-		// Always put userRepo password into incoming password field so password is
-		// enforced always:
-		// Other cases: we are updating address, so password should get updated
+		
+		// If the incoming password is empty, set it to the persisted user's password
 		if (savedUser.isPresent()) {
 			if (user.getPassword().isEmpty()) {
 				user.setPassword(savedUser.get().getPassword());
 			}
 		}
 
+		// Persist the updated user data and return
 		return userRepo.save(user);
 	}
 
 	private void initializeDefaultAddressForNewUser(User user) {
-		// TODO Auto-generated method stub
-		Account checking = new Account();
-		checking.setAccountName("Checking Account");
-		linkUserAndAccount(user, checking);
-		accountRepo.save(checking);
-
-		Account savings = new Account();
-		savings.setAccountName("Savings Account");
-		linkUserAndAccount(user, savings);
-		accountRepo.save(savings);
+	    String[] accountTypes = {"Checking Account", "Savings Account"};
+	    
+	    for (String accountType : accountTypes) {
+	        Account account = new Account();
+	        account.setAccountName(accountType);
+	        linkUserAndAccount(user, account);
+	        accountRepo.save(account);
+	    }
 
 	}
 
