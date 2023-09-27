@@ -43,6 +43,8 @@ public class UserController {
 		model.put("users", users);
 		if (users.size() == 1) {
 			model.put("user", users.iterator().next());
+			Integer nextAccountNumber = accountService.getNextAccountNumber();
+			model.put("new_account_number", nextAccountNumber);
 		}
 		return "users";
 	}
