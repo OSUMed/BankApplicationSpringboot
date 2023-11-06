@@ -1,4 +1,4 @@
-package com.coderscampus.assignment13.domain;
+package com.srikanth.assignment13.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

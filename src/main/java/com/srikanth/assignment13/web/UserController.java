@@ -1,4 +1,4 @@
-package com.coderscampus.assignment13.web;
+package com.srikanth.assignment13.web;
 
 import java.util.Set;
 
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.coderscampus.assignment13.domain.Account;
-import com.coderscampus.assignment13.domain.User;
-import com.coderscampus.assignment13.service.UserService;
-import com.coderscampus.assignment13.service.AccountService;
+import com.srikanth.assignment13.domain.Account;
+import com.srikanth.assignment13.domain.User;
+import com.srikanth.assignment13.service.AccountService;
+import com.srikanth.assignment13.service.UserService;
 
 @Controller
 public class UserController {

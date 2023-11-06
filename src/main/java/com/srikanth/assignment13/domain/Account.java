@@ -1,4 +1,4 @@
-package com.coderscampus.assignment13.domain;
+package com.srikanth.assignment13.domain;
 
 import java.util.ArrayList;
 import java.util.List;
