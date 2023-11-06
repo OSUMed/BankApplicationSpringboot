@@ -1,4 +1,4 @@
-package com.srikanth.assignment13.domain;
+package com.srikanth.bankapplication.domain;
 
 import java.util.ArrayList;
 import java.util.List;

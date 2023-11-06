@@ -1,4 +1,4 @@
-package com.srikanth.assignment13.web;
+package com.srikanth.bankapplication.web;
 
 import java.math.BigDecimal;
 
@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.srikanth.assignment13.domain.Product;
+import com.srikanth.bankapplication.domain.Product;
 
 import java.util.ArrayList;
 import java.util.List;

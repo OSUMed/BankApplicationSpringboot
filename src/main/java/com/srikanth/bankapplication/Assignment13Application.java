@@ -1,4 +1,4 @@
-package com.srikanth.assignment13;
+package com.srikanth.bankapplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.srikanth.assignment13.service;
+package com.srikanth.bankapplication.service;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -8,11 +8,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.srikanth.assignment13.domain.Account;
-import com.srikanth.assignment13.domain.Address;
-import com.srikanth.assignment13.domain.User;
-import com.srikanth.assignment13.repository.AccountRepository;
-import com.srikanth.assignment13.repository.UserRepository;
+import com.srikanth.bankapplication.domain.Account;
+import com.srikanth.bankapplication.domain.Address;
+import com.srikanth.bankapplication.domain.User;
+import com.srikanth.bankapplication.repository.AccountRepository;
+import com.srikanth.bankapplication.repository.UserRepository;
 
 @Service
 public class UserService {
